@@ -2,6 +2,10 @@
   "name": "trinix-travel-platform",
   "version": "1.0.0",
   "private": true,
+  "packageManager": "npm@11.10.1",
+  "engines": {
+    "node": ">=20"
+  },
   "workspaces": [
     "apps/*",
     "packages/*"
@@ -10,7 +14,9 @@
     "dev": "npm-run-all --parallel dev:web dev:api",
     "dev:web": "npm run dev --workspace @trinix/web",
     "dev:api": "npm run dev --workspace @trinix/api",
-    "build": "npm run build --workspace @trinix/shared && npm run build --workspace @trinix/api && npm run build --workspace @trinix/web",
+    "build": "node scripts/vercel-build.mjs",
+    "build:web": "npm --prefix apps/web run build",
+    "build:all": "npm --prefix packages/shared run build && npm --prefix apps/api run build && npm --prefix apps/web run build",
     "test": "npm run test --workspace @trinix/api && npm run test --workspace @trinix/web",
     "lint": "npm run lint --workspace @trinix/api && npm run lint --workspace @trinix/web",
     "format": "npm run format --workspace @trinix/api && npm run format --workspace @trinix/web"
